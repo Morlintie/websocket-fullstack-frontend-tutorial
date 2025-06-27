@@ -1,0 +1,31 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
+:root {
+  /* Colors */
+  --PAGE-BACKGROUND-COLOR: rgb(30, 30, 30);
+  --PAGE-TRANSPARENT-BACKGROUND-COLOR: rgba(80, 80, 80, 0.3);
+  --PAGE-TRANSPARENT-DARK-BACKGROUND-COLOR: rgba(5, 5, 5, 0.2);
+  --BORDER-COLOR: rgb(80, 80, 80);
+  /*fonts-family */
+  --MAIN-FONT-FAMILY: "Roboto";
+
+  /*font-colors */
+  --MAIN-FONT-COLOR: rgb(255, 255, 255);
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: var(--MAIN-FONT-FAMILY);
+  background-color: var(--PAGE-BACKGROUND-COLOR);
+  color: var(--MAIN-FONT-COLOR);
+  background-image: url("./assets/bgImage.svg");
+  background-repeat: no-repeat;
+  background-size: cover 100%;
+  background-position: center -80px;
+  overflow-x: hidden;
+}

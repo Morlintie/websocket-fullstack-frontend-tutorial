@@ -1,0 +1,16 @@
+.home-page-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 20vh;
+}
+
+.home-page {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  background-color: var(--PAGE-TRANSPARENT-BACKGROUND-COLOR);
+  border: 2px solid var(--BORDER-COLOR);
+  border-radius: 10px;
+  max-width: 200rem;
+  backdrop-filter: blur(25px);
+}
