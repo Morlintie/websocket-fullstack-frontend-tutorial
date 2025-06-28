@@ -92,7 +92,7 @@
 
 .left-user-profile {
   display: flex;
-
+  cursor: pointer;
   gap: 10px;
   align-items: center;
 }

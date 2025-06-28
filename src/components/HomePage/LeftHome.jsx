@@ -4,11 +4,23 @@ import { userDummyData } from "../../assets/assets";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-export function LeftHome() {
+export function LeftHome(props) {
   function renderUserList() {
     return userDummyData.map((user, index) => {
       return (
-        <div key={crypto.randomUUID()} className="left-user-profile ">
+        <div
+          onClick={() => {
+            props.setChatUser({
+              _id: user._id,
+              fullName: user.fullName,
+              profilePic: user.profilePic,
+              bio: user.bio,
+              email: user.email,
+            });
+          }}
+          key={crypto.randomUUID()}
+          className="left-user-profile "
+        >
           <img src={user.profilePic} alt="profile-picture" />
           <div>
             <h3>{user.fullName}</h3>

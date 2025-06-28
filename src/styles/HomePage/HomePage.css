@@ -2,7 +2,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 20vh;
+  padding: 5vh 50px 0px 50px;
+  min-width: 1000px;
 }
 
 .home-page {
@@ -13,4 +14,11 @@
   border-radius: 10px;
   max-width: 200rem;
   backdrop-filter: blur(25px);
+  max-height: 600px;
+  min-width: 800px;
+  overflow: auto;
+}
+
+.home-page::-webkit-scrollbar {
+  width: 0px;
 }
