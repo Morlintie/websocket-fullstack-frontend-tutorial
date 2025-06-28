@@ -17,7 +17,7 @@ export function HomePage() {
       <div className="home-page">
         <LeftHome setChatUser={setChatUser} />
         <CenterHome chatUser={chatUser} />
-        <RightHome />
+        {chatUser._id ? <RightHome chatUser={chatUser} /> : <></>}
       </div>
     </div>
   );

@@ -76,8 +76,8 @@ export function CenterHome(props) {
     <section className="center-home">
       <article className="center-home-header">
         <div className="center-home-header-profile">
-          <img src={assets.profile_martin} alt="profile-picture" />
-          <h2>Martin Jhonson</h2>
+          <img src={props.chatUser.profilePic} alt="profile-picture" />
+          <h2>{props.chatUser.fullName}</h2>
           <p></p>
         </div>
         <figure className="center-home-header-info-figure">
