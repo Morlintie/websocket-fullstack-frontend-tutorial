@@ -1,0 +1,87 @@
+.profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(87, 87, 87, 0.418);
+  backdrop-filter: blur(25px);
+  padding: 30px;
+  border-radius: 10px;
+  border: 2px solid rgb(72, 72, 72);
+  margin-top: 20vh;
+  margin: 20vh auto auto auto;
+  max-width: 600px;
+  gap: 20px;
+}
+
+.profile > img {
+  width: 250px;
+}
+
+.profile-config {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+
+  gap: 20px;
+}
+
+.profile-img-input {
+  display: none;
+}
+
+.profile-label {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.profile-label > img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.profile-label > span {
+  font-size: 1.1rem;
+  color: rgb(128, 128, 128);
+  font-weight: 500;
+}
+
+.profile-config > input {
+  width: 100%;
+  height: 2rem;
+  padding: 0 15px;
+  color: white;
+  background-color: rgba(131, 129, 129, 0.208);
+  border: none;
+  outline: none;
+  border-radius: 5px;
+}
+
+.profile-config > textarea {
+  width: 100%;
+  max-width: 300px;
+  height: 100px;
+  padding: 15px;
+  color: white;
+  background-color: rgba(125, 125, 125, 0.203);
+  border: none;
+  outline: none;
+  border-radius: 5px;
+}
+
+.profile-config > button {
+  width: 100%;
+  height: 2.5rem;
+  border: none;
+  font-size: 1.2rem;
+  border-radius: 50px;
+  cursor: pointer;
+  color: white;
+  background: linear-gradient(to right, rgb(225, 0, 222), rgb(130, 0, 159));
+}
