@@ -2,8 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 5vh 50px 0px 50px;
-  min-width: 1000px;
+  padding: 10vh 50px 0px 50px;
 }
 
 .home-page {
@@ -16,6 +15,7 @@
   backdrop-filter: blur(25px);
   max-height: 600px;
   min-width: 800px;
+  max-width: 1200px;
   overflow: auto;
 }
 

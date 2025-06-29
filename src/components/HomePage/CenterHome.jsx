@@ -123,6 +123,7 @@ export function CenterHome(props) {
           name="image"
           className="center-home-text-image"
           type="file"
+          accept="image/*"
         />
         <label className="center-home-image-upload" htmlFor="text-image">
           <img src={assets.gallery_icon} alt="gallery" />
