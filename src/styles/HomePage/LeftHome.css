@@ -113,3 +113,11 @@
 .left-user-offline {
   color: red;
 }
+
+.unreadMessageBox {
+  width: 30px;
+  height: 30px;
+  background-color: rgb(95, 24, 99);
+  color: white;
+  border-radius: 50%;
+}

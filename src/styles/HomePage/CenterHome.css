@@ -23,14 +23,18 @@
   border-radius: 50%;
 }
 
-.center-home-header-profile > p {
+.online-status-dot {
   background-color: rgb(0, 255, 0);
   height: 10px;
   width: 10px;
   border-radius: 50%;
 }
 
-.center-home-header-info-figure {
+.offline-status-dot {
+  background-color: rgb(255, 0, 0);
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
 }
 
 .center-home-header-info {

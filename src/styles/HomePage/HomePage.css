@@ -14,6 +14,7 @@
   max-width: 200rem;
   backdrop-filter: blur(25px);
   max-height: 600px;
+  min-height: 500px;
   min-width: 800px;
   max-width: 1200px;
   overflow: auto;

@@ -60,7 +60,6 @@ export function AuthProvider({ children }) {
       newSocket.on("onlineUsers", (users) => {
         setOnlineUsers(users);
       });
-      console.log(onlineUsers);
 
       try {
       } catch (error) {

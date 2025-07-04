@@ -2,18 +2,19 @@ import assets from "../../assets/assets";
 import { messagesDummyData } from "../../assets/assets";
 import "../../styles/HomePage/CenterHome.css";
 import { messageTime } from "../../lib/messageTime";
-import { useRef, useEffect } from "react";
-export function CenterHome(props) {
+import { useRef, useContext, useState } from "react";
+import { MessageContext } from "../../../contexts/MessageContext";
+import { AuthContext } from "../../../contexts/AuthContext";
+export function CenterHome() {
+  const { sendMessage, sendImageMessage, chatUser, messages } =
+    useContext(MessageContext);
+
+  const { authUser, onlineUsers } = useContext(AuthContext);
+  const [messageText, setMessageText] = useState("");
+
   const lastMessage = useRef(null);
 
-  useEffect(() => {
-    if (lastMessage.current) {
-      setTimeout(() => {
-        lastMessage.current.scrollIntoView({ behavior: "smooth" });
-      }, 100);
-    }
-  }, [messagesDummyData]);
-  if (!props?.chatUser._id) {
+  if (!chatUser._id) {
     return (
       <section className="center-home-no-content">
         <img src={assets.logo_big} alt="logo" />
@@ -21,17 +22,21 @@ export function CenterHome(props) {
       </section>
     );
   }
+
   function renderMessages() {
-    return messagesDummyData.map((message, index) => {
-      if (props.chatUser._id === message.senderId) {
+    return messages.map((message, index) => {
+      if (chatUser._id === message.senderId) {
         return (
           <div key={crypto.randomUUID()} className="message-container-foreign">
             <div className="message-profile">
-              <img src={props.chatUser.profilePic} alt="profile-picture" />
+              <img
+                src={chatUser.profilePic || assets.avatar_icon}
+                alt="profile-picture"
+              />
               <p>{messageTime(message.createdAt)}</p>
             </div>
             <div
-              ref={messagesDummyData.length - 1 === index ? lastMessage : null}
+              ref={messages.length - 1 === index ? lastMessage : null}
               className="center-home-real-message-foreign"
             >
               {message.image ? (
@@ -50,7 +55,7 @@ export function CenterHome(props) {
         return (
           <div key={crypto.randomUUID()} className="message-container-locale">
             <div
-              ref={messagesDummyData.length - 1 === index ? lastMessage : null}
+              ref={messages.length - 1 === index ? lastMessage : null}
               className="center-home-real-message-locale"
             >
               {message.image ? (
@@ -64,7 +69,10 @@ export function CenterHome(props) {
               )}
             </div>
             <div className="message-profile">
-              <img src={assets.avatar_icon} alt="profile-picture" />
+              <img
+                src={authUser.profilePic || assets.avatar_icon}
+                alt="profile-picture"
+              />
               <p>{messageTime(message.createdAt)}</p>
             </div>
           </div>
@@ -76,9 +84,18 @@ export function CenterHome(props) {
     <section className="center-home">
       <article className="center-home-header">
         <div className="center-home-header-profile">
-          <img src={props.chatUser.profilePic} alt="profile-picture" />
-          <h2>{props.chatUser.fullName}</h2>
-          <p></p>
+          <img
+            src={chatUser.profilePic || assets.avatar_icon}
+            alt="profile-picture"
+          />
+          <h2>{chatUser.fullName}</h2>
+          <p
+            className={
+              Object.keys(onlineUsers).includes(chatUser._id)
+                ? "online-status-dot"
+                : "offline-status-dot"
+            }
+          ></p>
         </div>
         <figure className="center-home-header-info-figure">
           <img
@@ -89,34 +106,22 @@ export function CenterHome(props) {
         </figure>
       </article>
       <hr />
-      <article className="center-home-message">
-        <div className="message-container-foreign">
-          <div className="message-profile">
-            <img src={assets.profile_martin} alt="profile-picture" />
-            <p>12.23</p>
-          </div>
-          <div className="center-home-real-message-foreign">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima
-            debitis doloremque modi itaque iste repellendus?
-          </div>
-        </div>
-        <div className="message-container-locale">
-          <div className="center-home-real-message-locale">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima
-            debitis doloremque modi itaque iste repellendus?
-          </div>
-          <div className="message-profile">
-            <img src={assets.avatar_icon} alt="profile-picture" />
-            <p>12.24</p>
-          </div>
-        </div>
-        {renderMessages()}
-      </article>
+      <article className="center-home-message">{renderMessages()}</article>
       <article className="center-home-text">
         <input
           placeholder="Type something"
           className="center-home-text-input"
-          type="text"
+          type="message"
+          value={messageText}
+          onChange={(e) => {
+            setMessageText(e.target.value);
+          }}
+          onClick={(e) => {
+            if (e.key === "Enter") {
+              sendMessage(messageText);
+              setMessageText("");
+            }
+          }}
         />
         <input
           id="text-image"
@@ -124,12 +129,22 @@ export function CenterHome(props) {
           className="center-home-text-image"
           type="file"
           accept="image/*"
+          onChange={(e) => {
+            sendImageMessage(e.target.files[0]);
+          }}
         />
         <label className="center-home-image-upload" htmlFor="text-image">
           <img src={assets.gallery_icon} alt="gallery" />
         </label>
         <button className="center-home-text-submit">
-          <img src={assets.send_button} alt="send" />
+          <img
+            onClick={() => {
+              sendMessage(messageText);
+              setMessageText("");
+            }}
+            src={assets.send_button}
+            alt="send"
+          />
         </button>
       </article>
     </section>
