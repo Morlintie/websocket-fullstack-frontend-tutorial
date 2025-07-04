@@ -1,13 +1,16 @@
 import assets from "../assets/assets";
 import "../styles/Login/LoginPage.css";
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthContext";
 
 export function LoginPage() {
+  const { signUp, login, showUser, authUser } = useContext(AuthContext);
   const [isLogin, setIsLogin] = useState(false);
   const [reactSignUp, setReactSignUp] = useState({
     email: "",
     password: "",
-    name: "",
+    fullName: "",
     terms: false,
   });
   const [reactLogin, setReactLogin] = useState({
@@ -15,6 +18,7 @@ export function LoginPage() {
     password: "",
     terms: false,
   });
+  const navigate = useNavigate();
   function handleLogin() {
     setIsLogin((prev) => {
       return !prev;
@@ -25,7 +29,8 @@ export function LoginPage() {
     setReactSignUp((prev) => {
       return {
         ...prev,
-        [e.currentTarget.name]: e.currentTarget.value,
+        [e.target.name]:
+          e.target.type === "checkbox" ? e.target.checked : e.target.value,
       };
     });
   }
@@ -34,10 +39,21 @@ export function LoginPage() {
     setReactLogin((prev) => {
       return {
         ...prev,
-        [e.currentTarget.name]: e.currentTarget.value,
+        [e.target.name]:
+          e.target.type === "checkbox" ? e.target.checked : e.target.value,
       };
     });
   }
+
+  useEffect(() => {
+    showUser();
+  }, []);
+
+  useEffect(() => {
+    if (authUser) {
+      navigate("/");
+    }
+  }, [authUser]);
 
   return (
     <section className="login">
@@ -53,7 +69,7 @@ export function LoginPage() {
             <>
               <input
                 onChange={handleLoginSubmit}
-                value={reactLogin.name}
+                value={reactLogin.email}
                 name="email"
                 placeholder="Email Address"
                 type="text"
@@ -65,7 +81,15 @@ export function LoginPage() {
                 placeholder="Password"
                 type="text"
               />
-              <button>Login Now</button>
+              <button
+                onClick={async (e) => {
+                  e.preventDefault();
+                  await login(reactLogin);
+                  navigate("/");
+                }}
+              >
+                Login Now
+              </button>
               <label htmlFor="">
                 <input
                   onChange={handleLoginSubmit}
@@ -84,8 +108,8 @@ export function LoginPage() {
             <>
               <input
                 onChange={handleSignupSubmit}
-                value={reactSignUp.name}
-                name="name"
+                value={reactSignUp.fullName}
+                name="fullName"
                 placeholder="Full Name"
                 type="text"
               />
@@ -103,7 +127,15 @@ export function LoginPage() {
                 placeholder="password"
                 type="text"
               />
-              <button>Create Account</button>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  signUp(reactSignUp);
+                  isLogin(true);
+                }}
+              >
+                Create Account
+              </button>
               <label htmlFor="">
                 <input
                   onChange={handleSignupSubmit}

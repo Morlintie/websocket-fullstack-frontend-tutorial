@@ -1,19 +1,25 @@
 import "../styles/Profile/ProfilePage.css";
 import assets from "../assets/assets";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { AuthContext } from "../../contexts/AuthContext";
 
 export function ProfilePage() {
+  const { updateUserInfo, updateUserProfilePic, authUser } =
+    useContext(AuthContext);
   const [profileForm, setProfileForm] = useState({
-    name: "Martin Jhonson",
-    bio: "Hi Everyone, I am using QucikChat!",
+    fullName: authUser.fullName,
+    bio: authUser.bio,
   });
-  const [profileURL, setProfileURL] = useState(assets.profile_martin);
+  const [profileURL, setProfileURL] = useState(
+    authUser.profilePic || assets.avatar_icon
+  );
 
   function handleProfileChange(e) {
     setProfileForm((prev) => {
       return {
         ...prev,
-        [e.target.name]: e.target.value,
+        [e.target.name]:
+          e.target.type === "checkbox" ? e.target.checked : e.target.value,
       };
     });
   }
@@ -26,7 +32,8 @@ export function ProfilePage() {
           onChange={(e) => {
             setProfileURL(URL.createObjectURL(e.target.files[0]));
             const form = new FormData();
-            form.append("image", e.target.files[0]);
+            form.set("profilePic", e.target.files[0]);
+            updateUserProfilePic(form);
           }}
           name="image"
           accept="image/*"
@@ -40,18 +47,23 @@ export function ProfilePage() {
           <span>Upload image</span>
         </label>
         <input
-          value={profileForm.name}
+          value={profileForm.fullName}
           onChange={handleProfileChange}
-          name="name"
+          name="fullName"
           type="text"
         />
         <textarea
           value={profileForm.bio}
           onChange={handleProfileChange}
           name="bio"
-          id=""
         ></textarea>
-        <button>Save</button>
+        <button
+          onClick={(e) => {
+            updateUserInfo(profileForm);
+          }}
+        >
+          Save
+        </button>
       </div>
       <img src={assets.logo_big} alt="logo" />
     </section>

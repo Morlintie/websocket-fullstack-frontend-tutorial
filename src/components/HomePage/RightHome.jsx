@@ -1,7 +1,10 @@
 import { imagesDummyData } from "../../assets/assets";
 import "../../styles/HomePage/RightHome.css";
+import { AuthContext } from "../../../contexts/AuthContext";
+import { useContext } from "react";
 
 export function RightHome(props) {
+  const { authUser, logout } = useContext(AuthContext);
   return (
     <section className="right-home">
       <div className="right-home-upper-wrapper">
@@ -27,7 +30,9 @@ export function RightHome(props) {
         </article>
       </div>
       <div className="right-home-lower-wrapper">
-        <button className="right-home-logout">Logout</button>
+        <button onClick={logout} className="right-home-logout">
+          Logout
+        </button>
       </div>
     </section>
   );
